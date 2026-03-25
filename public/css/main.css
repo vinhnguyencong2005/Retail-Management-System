@@ -1,0 +1,91 @@
+:root {
+    --bg: #f4f7fb;
+    --surface: #ffffff;
+    --text: #16324f;
+    --muted: #5f7387;
+    --primary: #0f766e;
+    --primary-soft: #d9f5f2;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(120deg, #eef4ff 0%, #f4f7fb 50%, #e8f7f5 100%);
+    color: var(--text);
+    display: grid;
+    place-items: center;
+    padding: 24px;
+}
+
+.container {
+    width: min(900px, 100%);
+    background: var(--surface);
+    border-radius: 16px;
+    box-shadow: 0 14px 40px rgba(22, 50, 79, 0.12);
+    padding: 28px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.brand h1 {
+    margin: 0;
+    font-size: 1.6rem;
+}
+
+.brand p {
+    margin: 6px 0 0;
+    color: var(--muted);
+}
+
+.lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.lang-switcher label {
+    font-weight: 600;
+}
+
+.lang-switcher select {
+    border: 1px solid #d1dce8;
+    border-radius: 10px;
+    padding: 8px 10px;
+    background: #fff;
+    color: var(--text);
+}
+
+.cards {
+    margin-top: 22px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+}
+
+.card {
+    background: var(--primary-soft);
+    border: 1px solid #c0ece8;
+    border-radius: 12px;
+    padding: 14px;
+}
+
+.card h3 {
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.card p {
+    margin: 0;
+    color: #28566c;
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retail Project</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <main class="container">
+        <div class="topbar">
+            <div class="brand">
+                <h1 data-i18n="appName">Retail Management</h1>
+                <p data-i18n="tagline">Manage stock, sales reports, and invoices in one place.</p>
+            </div>
+
+            <div class="lang-switcher">
+                <label for="language" data-i18n="languageLabel">Language</label>
+                <select id="language" aria-label="Language selector">
+                    <option value="en">English</option>
+                    <option value="vi">Tiếng Việt</option>
+                </select>
+            </div>
+        </div>
+
+        <section class="cards">
+            <article class="card">
+                <h3 data-i18n="stockTitle">Stocking Management</h3>
+                <p data-i18n="stockDesc">Track quantity, sale price, and import history.</p>
+            </article>
+
+            <article class="card">
+                <h3 data-i18n="reportTitle">Sale Report</h3>
+                <p data-i18n="reportDesc">Review operating costs, top buyers, and debt status.</p>
+            </article>
+
+            <article class="card">
+                <h3 data-i18n="invoiceTitle">Invoice</h3>
+                <p data-i18n="invoiceDesc">Create detailed invoices with customer and payment details.</p>
+            </article>
+        </section>
+    </main>
+
+    <script type="module">
+        import { initI18n } from "../i18n/i18n.js";
+
+        initI18n({
+            selector: "#language",
+            storageKey: "language",
+            defaultLanguage: "en",
+            titleKey: "pageTitle"
+        });
+    </script>
+</body>
+</html>
