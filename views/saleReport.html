@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="reportPageTitle"></title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <h1 data-i18n="appName"></h1>
+        </div>
+
+        <ul class="navbar-menu">
+            <li><a href="/" class="nav-link" data-i18n="invoiceTitle"></a></li>
+            <li><a href="/products" class="nav-link" data-i18n="stockTitle"></a></li>
+            <li><a href="/report" class="nav-link active" data-i18n="reportTitle"></a></li>
+        </ul>
+
+        <div class="lang-switcher">
+            <label for="language" data-i18n="languageLabel">Language</label>
+            <select id="language" aria-label="Language selector">
+                <option value="en">English</option>
+                <option value="vi">Tiếng Việt</option>
+            </select>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h2 data-i18n="reportTitle"></h2>
+        
+        <div class="page-content">
+            <p data-i18n="reportDesc"></p>
+
+            <div class="report-filters">
+                <label for="dateFrom" data-i18n="dateFrom">Date From:</label>
+                <input type="date" id="dateFrom">
+                
+                <label for="dateTo" data-i18n="dateTo">Date To:</label>
+                <input type="date" id="dateTo">
+                
+                <button class="btn btn-primary" data-i18n="generateReport">Generate Report</button>
+            </div>
+
+            <div class="report-section">
+                <h3>Summary Statistics</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4 data-i18n="totalSales">Total Sales</h4>
+                        <p class="stat-value" id="totalSales">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4 data-i18n="totalInvoices">Total Invoices</h4>
+                        <p class="stat-value" id="totalInvoices">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4 data-i18n="topBuyers">Top Buyers</h4>
+                        <p class="stat-value" id="topBuyers">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4 data-i18n="debtStatus">Debt Status</h4>
+                        <p class="stat-value" id="debtStatus">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="report-section">
+                <h3 data-i18n="invoicesTitle">Recent Invoices</h3>
+                <table class="invoices-table">
+                    <thead>
+                        <tr>
+                            <th data-i18n="invoiceId">Invoice ID</th>
+                            <th data-i18n="date">Date</th>
+                            <th data-i18n="customer">Customer</th>
+                            <th data-i18n="totalAmount">Total Amount</th>
+                            <th data-i18n="status">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="invoicesTable">
+                        <!-- Invoices will be loaded here via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="/js/language.js"></script>
+    <script type="module" src="/js/saleReport.js"></script>
+</body>
+</html>
