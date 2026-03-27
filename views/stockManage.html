@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="stockPageTitle"></title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <h1 data-i18n="appName"></h1>
+        </div>
+
+        <ul class="navbar-menu">
+            <li><a href="/" class="nav-link" data-i18n="invoiceTitle"></a></li>
+            <li><a href="/products" class="nav-link active" data-i18n="stockTitle"></a></li>
+            <li><a href="/report" class="nav-link" data-i18n="reportTitle"></a></li>
+        </ul>
+
+        <div class="lang-switcher">
+            <label for="language" data-i18n="languageLabel"></label>
+            <select id="language" aria-label="Language selector">
+                <option value="en">English</option>
+                <option value="vi">Tiếng Việt</option>
+            </select>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h2 data-i18n="stockTitle"></h2>
+        
+        <div class="page-content">
+            <div class="section-header">
+                <h3 data-i18n="stockDesc"></h3>
+                <button class="btn btn-primary" data-i18n="addProduct"></button>
+            </div>
+
+            <table class="products-table">
+                <thead>
+                    <tr>
+                        <th data-i18n="productId"></th>
+                        <th data-i18n="productName"></th>
+                        <th data-i18n="quantity"></th>
+                        <th data-i18n="unit"></th>
+                        <th data-i18n="costPrice"></th>
+                        <th data-i18n="salePrice"></th>
+                        <th data-i18n="note"></th>
+                        <th data-i18n="actions"></th>
+                    </tr>
+                </thead>
+                <tbody id="productsTable">
+                    <!-- Products will be loaded here via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script type = "module" src = "/js/language.js"></script>
+    <script type="module" src="/js/stockManage.js"></script>
+</body>
+</html>
