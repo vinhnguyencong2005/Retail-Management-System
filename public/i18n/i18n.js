@@ -2,7 +2,7 @@ import { en } from "./locales/en.js";
 import { vi } from "./locales/vi.js";
 
 const DEFAULT_STORAGE_KEY = "language";
-const DEFAULT_LANGUAGE = "en";
+const DEFAULT_LANGUAGE = "vi";
 
 const locales = {
     en,
@@ -33,15 +33,15 @@ function translateElement(element, messages) {
     const placeholderKey = element.getAttribute("data-i18n-placeholder");
     const titleKey = element.getAttribute("data-i18n-title");
 
-    if (textKey && messages[textKey]) {
+    if (textKey && Object.prototype.hasOwnProperty.call(messages, textKey)) {
         setElementText(element, messages[textKey]);
     }
 
-    if (placeholderKey && messages[placeholderKey]) {
+    if (placeholderKey && Object.prototype.hasOwnProperty.call(messages, placeholderKey)) {
         element.setAttribute("placeholder", messages[placeholderKey]);
     }
 
-    if (titleKey && messages[titleKey]) {
+    if (titleKey && Object.prototype.hasOwnProperty.call(messages, titleKey)) {
         element.setAttribute("title", messages[titleKey]);
     }
 }
@@ -58,7 +58,7 @@ export function applyLanguage(lang, options = {}) {
 
     document.documentElement.lang = selectedLanguage;
 
-    if (messages[titleKey]) {
+    if (Object.prototype.hasOwnProperty.call(messages, titleKey)) {
         document.title = messages[titleKey];
     }
 
