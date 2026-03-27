@@ -3,53 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retail Project</title>
+    <title data-i18n="invoicePageTitle"></title>
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-    <main class="container">
-        <div class="topbar">
-            <div class="brand">
-                <h1 data-i18n="appName">Retail Management</h1>
-                <p data-i18n="tagline">Manage stock, sales reports, and invoices in one place.</p>
-            </div>
-
-            <div class="lang-switcher">
-                <label for="language" data-i18n="languageLabel">Language</label>
-                <select id="language" aria-label="Language selector">
-                    <option value="en">English</option>
-                    <option value="vi">Tiếng Việt</option>
-                </select>
-            </div>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <h1 data-i18n="appName"></h1>
         </div>
 
-        <section class="cards">
-            <article class="card">
-                <h3 data-i18n="stockTitle">Stocking Management</h3>
-                <p data-i18n="stockDesc">Track quantity, sale price, and import history.</p>
-            </article>
+        <ul class="navbar-menu">
+              <li><a href="/" class="nav-link active" data-i18n="invoiceTitle"></a></li>
+              <li><a href="/products" class="nav-link" data-i18n="stockTitle"></a></li>
+              <li><a href="/report" class="nav-link" data-i18n="reportTitle"></a></li>
+        </ul>
 
-            <article class="card">
-                <h3 data-i18n="reportTitle">Sale Report</h3>
-                <p data-i18n="reportDesc">Review operating costs, top buyers, and debt status.</p>
-            </article>
+        <div class="lang-switcher">
+            <label for="language" data-i18n="languageLabel">Language</label>
+            <select id="language" aria-label="Language selector">
+                <option value="en">English</option>
+                <option value="vi">Tiếng Việt</option>
+            </select>
+        </div>
+    </nav>
 
-            <article class="card">
-                <h3 data-i18n="invoiceTitle">Invoice</h3>
-                <p data-i18n="invoiceDesc">Create detailed invoices with customer and payment details.</p>
-            </article>
-        </section>
+    <main class="container">
+        <h2 data-i18n="invoiceTitle"></h2>
+            <div class="page-content invoice-page-content">
+                <p data-i18n="invoiceDesc"></p>
+
+                <div class="subtabs" role="tablist" aria-label="Invoice tabs">
+                    <button type="button" class="subtab-btn active" data-tab-target="invoice-list-tab" role="tab" aria-selected="true">Invoices List</button>
+                    <button type="button" class="subtab-btn" data-tab-target="invoice-create-tab" role="tab" aria-selected="false">Create Invoice</button>
+                </div>
+
+                <section id="invoice-list-tab" class="subtab-panel active" role="tabpanel">
+                    <div class="section-header invoice-toolbar">
+                        <h3>Invoice History</h3>
+                        <button type="button" id="refreshInvoicesBtn" class="btn btn-primary">Refresh</button>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table class="invoices-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Customer Name</th>
+                                    <th>Total Amount</th>
+                                    <th>Shipping Fee</th>
+                                    <th>Payment Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="invoiceListBody"></tbody>
+                        </table>
+                    </div>
+
+                    <p id="invoiceListEmpty" class="empty-state" hidden>No invoices found.</p>
+
+                    <section id="invoiceDetailPanel" class="invoice-detail" hidden>
+                        <div class="section-header">
+                            <h3>Invoice Detail</h3>
+                            <button type="button" id="printInvoiceBtn" class="btn btn-primary btn-sm">Print / Save PDF</button>
+                        </div>
+
+                        <div class="detail-grid">
+                            <p><strong>Invoice ID:</strong> <span id="detailInvoiceId">-</span></p>
+                            <p><strong>Date:</strong> <span id="detailInvoiceDate">-</span></p>
+                            <p><strong>Customer:</strong> <span id="detailCustomerName">-</span></p>
+                            <p><strong>Phone:</strong> <span id="detailCustomerPhone">-</span></p>
+                            <div class="status-update-group">
+                                <p><strong>Status:</strong> <span id="detailStatus">-</span></p>
+                                <div class="status-update-controls">
+                                    <select id="updateStatusSelect" aria-label="Update payment status">
+                                        <option value="Unpaid">Unpaid</option>
+                                        <option value="Paid">Paid</option>
+                                    </select>
+                                    <button type="button" id="updateStatusBtn" class="btn btn-sm btn-primary">Update</button>
+                                </div>
+                                <p id="updateStatusMessage" class="form-message" aria-live="polite"></p>
+                            </div>
+                            <p><strong>Shipping Fee:</strong> <span id="detailShippingFee">0</span></p>
+                            <p><strong>Total Amount:</strong> <span id="detailTotalAmount">0</span></p>
+                        </div>
+
+                        <div class="table-wrap">
+                            <table class="invoices-table">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                        <th>Cost Price</th>
+                                        <th>Sale Price</th>
+                                        <th>Line Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="invoiceItemsBody"></tbody>
+                            </table>
+                        </div>
+
+                        <p id="invoiceItemsEmpty" class="empty-state" hidden>No invoice items found.</p>
+                    </section>
+                </section>
+
+                <section id="invoice-create-tab" class="subtab-panel" role="tabpanel">
+                    <div class="section-header">
+                        <h3>Create Invoice</h3>
+                    </div>
+
+                    <form id="createInvoiceForm" class="invoice-form">
+                        <div class="form-grid">
+                            <label>
+                                Invoice Date
+                                <input id="invoiceDate" name="invoiceDate" type="datetime-local" required>
+                            </label>
+                            <label>
+                                Payment Status
+                                <select id="invoiceStatus" name="invoiceStatus" required>
+                                    <option value="Unpaid">Unpaid</option>
+                                    <option value="Paid">Paid</option>
+                                </select>
+                            </label>
+                            <label>
+                                Customer Name
+                                <input id="customerName" name="customerName" type="text" required maxlength="200" placeholder="Enter customer name">
+                            </label>
+                            <label>
+                                Customer Phone
+                                <input id="customerPhone" name="customerPhone" type="tel" maxlength="20" placeholder="Optional phone number">
+                            </label>
+                            <label>
+                                Shipping Fee
+                                <input id="shippingFee" name="shippingFee" type="number" min="0" step="1" value="0" required>
+                            </label>
+                        </div>
+
+                        <div class="section-header invoice-items-header">
+                            <h4>Invoice Items</h4>
+                            <button type="button" id="addItemBtn" class="btn btn-primary btn-sm">Add Item</button>
+                        </div>
+
+                        <div class="table-wrap">
+                            <table class="invoices-table invoice-create-table">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Available</th>
+                                        <th>Quantity</th>
+                                        <th>Cost Price</th>
+                                        <th>Sale Price</th>
+                                        <th>Line Total</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="createItemsBody"></tbody>
+                            </table>
+                        </div>
+
+                        <p id="createItemsEmpty" class="empty-state" hidden>Add at least one item before creating invoice.</p>
+
+                        <div class="invoice-summary">
+                            <p>Subtotal: <strong id="subtotalValue">0</strong></p>
+                            <p>Grand Total: <strong id="grandTotalValue">0</strong></p>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Create Invoice</button>
+                            <button type="button" id="resetInvoiceFormBtn" class="btn">Reset</button>
+                        </div>
+
+                        <p id="createInvoiceMessage" class="form-message" aria-live="polite"></p>
+                    </form>
+                </section>
+
+                <section id="printInvoiceSection" class="print-invoice" aria-hidden="true">
+                    <h1 id="printCompanyName"></h1>
+                    <div class="print-meta">
+                        <p><strong data-i18n="date"></strong> <span id="printInvoiceDate"></span></p>
+                        <p><strong data-i18n="customer"></strong> <span id="printCustomerName"></span></p>
+                        <p><strong data-i18n="phone"></strong> <span id="printCustomerPhone"></span></p>
+                        <p><strong data-i18n="status"></strong> <span id="printStatus"></span></p>
+                        <p><strong data-i18n="shipping_fee"></strong> <span id="printShippingFee"></span></p>
+                        <p><strong data-i18n="total_amount"></strong> <span id="printTotalAmount"></span></p>
+                    </div>
+
+                    <table class="print-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Unit</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Line Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="printItemsBody"></tbody>
+                    </table>
+                </section>
+            </div>
     </main>
 
-    <script type="module">
-        import { initI18n } from "../i18n/i18n.js";
-
-        initI18n({
-            selector: "#language",
-            storageKey: "language",
-            defaultLanguage: "en",
-            titleKey: "pageTitle"
-        });
-    </script>
+    <script type="module" src="/js/language.js"></script>
+    <script type="module" src="/js/index.js"></script>
 </body>
 </html>

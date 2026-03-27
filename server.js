@@ -6,6 +6,8 @@ require('dotenv').config();
 
 // Import routes
 const pageRoutes = require('./routes/pageRoutes');
+const productRoutes = require('./routes/productRoutes');
+const invoiceRoutes = require('./routes/invoiceRoutes');
 
 const app = express();
 
@@ -17,6 +19,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/', pageRoutes);
+app.use('/', productRoutes);
+app.use('/', invoiceRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ success: false, message: 'Route not found' });
